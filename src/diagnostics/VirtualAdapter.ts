@@ -19,5 +19,10 @@ export class VirtualAdapter implements DiagnosticAdapter {
   async readFaults(){this.assertConnected();return this.faults.map(f=>({...f}));}
   async clearDemoFaults(){this.assertConnected();this.faults=[];}
   async restoreDemoFaults(){this.assertConnected();this.faults=sampleFaults.map(f=>({...f}));}
-  async scanModules(){this.assertConnected();return [{module:'Virtual Engine ECU',status:'Simulated',faults:this.faults.length}];}
+  async scanModules(){this.assertConnected();return [
+      {id:'engine',module:'Engine ECU',status:'Simulated',faults:this.faults.length},
+      {id:'transmission',module:'Transmission Control',status:'Simulated',faults:0},
+      {id:'abs',module:'ABS Module',status:'Simulated',faults:0},
+      {id:'srs',module:'SRS Airbag Module',status:'Simulated',faults:0}
+    ];}
 }
